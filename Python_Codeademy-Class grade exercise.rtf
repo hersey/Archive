@@ -1,0 +1,131 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf510
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 #This exercise is about creating a grade calculating tool for students in class\
+\
+lloyd = \{\
+    "name": "Lloyd",\
+    "homework": [90.0, 97.0, 75.0, 92.0],\
+    "quizzes": [88.0, 40.0, 94.0],\
+    "tests": [75.0, 90.0]\
+\}\
+alice = \{\
+    "name": "Alice",\
+    "homework": [100.0, 92.0, 98.0, 100.0],\
+    "quizzes": [82.0, 83.0, 91.0],\
+    "tests": [89.0, 97.0]\
+\}\
+\
+tyler = \{\
+    "name": "Tyler",\
+    "homework": [0.0, 87.0, 75.0, 22.0],\
+    "quizzes": [0.0, 75.0, 78.0],\
+    "tests": [100.0, 100.0]\
+\}\
+\
+'def average(lst): #calculate the average grade within a list.\
+    total=float(sum(lst))\
+    length=float(len(lst))\
+    return total/length\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 #calculate the weighted average per student: homework=10%,quizzes=30%, tests=60%.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 def get_average(student): \
+    hw=float(average(student["homework"]))*.1\
+    qz=float(average(student["quizzes"]))*.3\
+    ts=float(average(student["tests"]))*.6\
+    print (hw+qz+ts)\
+\
+#turn the score into letter grade A-F\
+def get_letter_grade(score): \
+    if score>=90: \
+        return "A"\
+    elif 80 <= score < 90: \
+        return "B"\
+    elif 70 <= score < 80: \
+        return "C"\
+    elif 60 <= score < 70: \
+        return "D"\
+    elif score < 60: \
+        return "F"\
+\
+#A list of all students in class\
+students = [lloyd, alice, tyler]\
+\
+#Calculate the total class average grade by adding all students' averages together and divided by \
+#number of students in class. ---> THIS IS WHERE I HAVE PROBLEM. Can't get the right results. \
+\
+def get_class_average(class_list):\
+    totals = 0.0\
+    for x in class_list:\
+        totals = totals + get_average(x)\
+    return totals / len(class_list)\
+\
+print get_class_average(students)\
+\
+-------------------------------Answer from others----------------------------------------\
+\
+lloyd = \{\
+    "name": "Lloyd",\
+    "homework": [90.0, 97.0, 75.0, 92.0],\
+    "quizzes": [88.0, 40.0, 94.0],\
+    "tests": [75.0, 90.0]\
+\}\
+alice = \{\
+    "name": "Alice",\
+    "homework": [100.0, 92.0, 98.0, 100.0],\
+    "quizzes": [82.0, 83.0, 91.0],\
+    "tests": [89.0, 97.0]\
+\}\
+tyler = \{\
+    "name": "Tyler",\
+    "homework": [0.0, 87.0, 75.0, 22.0],\
+    "quizzes": [0.0, 75.0, 78.0],\
+    "tests": [100.0, 100.0]\
+\}\
+# Averaging function to support the "get_average"\
+\
+def average(lst):\
+    return float(sum(lst)) / len(lst)\
+# Gets the Weighted average for "student"\
+# homework @ 10%, quizzes @ 30% and tests @ 60%\
+\
+def get_average(student):\
+   return average(student["homework"])*.1 + average(student["quizzes"])*.3 + average(student["tests"])*.6\
+\
+# Returns a letter value for "score"\
+def get_letter_grade(score):\
+    if score >= 90:\
+        return 'A'\
+    elif score >= 80 and score < 90:\
+        return 'B'\
+    elif score >= 70 and score < 80:\
+        return 'C'\
+    elif score >= 60 and score < 70:\
+        return 'D'\
+    elif score < 60:\
+        return 'F'\
+    else:\
+        print "Invalid Input!"\
+""" \
+Where the "magic" happens.\
+Call "get_letter_grade" first to ensure that a letter grade is returned\
+It's result is based on the "get_average" function which wants a student.\
+here defined as "lloyd"\
+"""\
+print get_letter_grade(get_average(lloyd))\
+\
+# To print the class average as defined by the "cl" variable:\
+cl = [lloyd, alice, tyler]\
+def get_class_average(cl):\
+    cavg = 0\
+    for student in cl:\
+        cavg += get_average(student)\
+    return cavg / len(cl)\
+print get_class_average(cl)\
+# Print Letter grade of class average\
+print get_letter_grade(get_class_average(cl))}
