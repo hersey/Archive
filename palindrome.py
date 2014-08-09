@@ -15,6 +15,5 @@ def is_palindrome(word):
 		return False
 	return is_palindrome(middle(word))
 
-
-	###### The exercise is from Thinkpython.com Chapter 6: Fruitful Function #####
+###### The exercise is from Thinkpython.com Chapter 6: Fruitful Function #####
 	
